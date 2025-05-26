@@ -1,1 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.font-retro {
+    font-family: 'Press Start 2P', cursive;
+}
 
+
+.shadow-lg {
+    box-shadow: 4px 4px 0 #2A2B8D, 8px 8px 0 #004080;
+}
+
+.img-pokemon{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.533);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.img-pokemon img{
+    width: 50%;
+}
+
+.stat-pokemon{
+    width: 100%;
+    height: 20vh;
+    background-color: rgba(0, 0, 0, 0.414);
+    border-radius: 5px;
+}
+
+.card-container {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px; 
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+.card{
+
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out; 
+    margin-top: 40px;
+    margin-bottom: 40px;
+    
+
+}
+
+.card-front{
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+
+.card-pokemon-feu{
+    background: linear-gradient(45deg,#FFB701, #FF2B00);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+}
+
+.card-pokemon-eau{
+    background: linear-gradient(45deg,#0095ff, #000e7c);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+
+}
+
+.card-pokemon-herbe{
+    background: linear-gradient(45deg,#00ff6e, #007124);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+}
+
+.card-pokemon-elec{
+    background: linear-gradient(45deg,#fff700, #b9c000);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+}
+
+.card-pokemon-psy{
+    background: linear-gradient(45deg,#7a00bc, #390041);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+}
+
+.card-pokemon-obscure{
+    background: linear-gradient(45deg,#17002a, #14001a);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+}
+
+.card-pokemon-poison{
+    background: linear-gradient(45deg,#7a00bc, #14001a);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+}
+
+.card-pokemon-dragon{
+    background: linear-gradient(45deg,#b5b5b5, #646464);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+}
+
+.card-pokemon-normal{
+    background: linear-gradient(45deg,#ffffff, #cccccc);
+    background-size: 300% 300%;
+    animation: color 2s ease-in-out infinite;
+    
+}
+
+
+
+@keyframes color{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+@keyframes rotateCard {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .card-rotate-bg {
+    background: linear-gradient(45deg, #ffffff, #cccccc, #ffffff);
+    background-size: 200% 200%;
+    animation: gradientShift 5s linear infinite;
+  }
+  
+  .card-rotate {
+    animation: rotateCard 8s linear infinite;
+    transform-style: preserve-3d;
+  }
+
+
+footer {
+    text-align: center;
+    padding: 5px;
+    color: #0032de;
+    position: relative;
+    margin-top: auto;
+  }
