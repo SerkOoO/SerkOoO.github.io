@@ -8,153 +8,173 @@
     box-shadow: 4px 4px 0 #2A2B8D, 8px 8px 0 #004080;
 }
 
-.img-pokemon{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.533);
-    padding: 1rem;
-    border-radius: 5px;
-}
-
-.img-pokemon img{
-    width: 50%;
-}
-
-.stat-pokemon{
-    width: 100%;
-    height: 20vh;
-    background-color: rgba(0, 0, 0, 0.414);
-    border-radius: 5px;
-}
+/* ===== Cards container ===== */
 
 .card-container {
-    width: 100%;
-    height: 100%;
-    perspective: 1000px; 
-
     display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.5rem;
+    padding: 3rem 1rem 4rem;
+    perspective: 1000px;
+}
 
-.card{
-
-    width: 100%;
-    height: 100%;
-    position: relative;
+.card {
+    width: 18rem;
+    max-width: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.1s ease-out; 
-    margin-top: 40px;
-    margin-bottom: 40px;
-    
-
-}
-
-.card-front{
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease-out;
     cursor: pointer;
-  }
+}
 
-.card-pokemon-feu{
-    background: linear-gradient(45deg,#FFB701, #FF2B00);
+/* ===== Card ===== */
+
+.card-front {
+    --card-text: #ffffff;
+    color: var(--card-text);
+    text-align: left;
+    padding: 1.1rem;
+    border: 6px solid #ffcb05;
+    border-radius: 14px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
     background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
+    animation: color 3s ease-in-out infinite;
 }
 
-.card-pokemon-eau{
-    background: linear-gradient(45deg,#0095ff, #000e7c);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
-
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
-.card-pokemon-herbe{
-    background: linear-gradient(45deg,#00ff6e, #007124);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
+.card-name {
+    font-size: 0.8rem;
+    line-height: 1.3;
 }
 
-.card-pokemon-elec{
-    background: linear-gradient(45deg,#fff700, #b9c000);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
+.card-types {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
 }
 
-.card-pokemon-psy{
-    background: linear-gradient(45deg,#7a00bc, #390041);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
+.type-icon {
+    height: 22px;
+    width: auto;
 }
 
-.card-pokemon-obscure{
-    background: linear-gradient(45deg,#17002a, #14001a);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
+.img-pokemon {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
-.card-pokemon-poison{
-    background: linear-gradient(45deg,#7a00bc, #14001a);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
+.img-pokemon img {
+    width: 70%;
+    filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.4));
 }
 
-.card-pokemon-dragon{
-    background: linear-gradient(45deg,#b5b5b5, #646464);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
+.stat-pokemon {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    font-size: 0.6rem;
 }
 
-.card-pokemon-normal{
-    background: linear-gradient(45deg,#ffffff, #cccccc);
-    background-size: 300% 300%;
-    animation: color 2s ease-in-out infinite;
-    
+.stat-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 4px;
 }
 
-
-
-@keyframes color{
-    0%{
-        background-position: 0 50%;
-    }
-    50%{
-        background-position: 100% 50%;
-    }
-    100%{
-        background-position: 0 50%;
-    }
+.stat-row + .stat-row {
+    margin-top: 0.6rem;
 }
+
+.stat-value {
+    font-style: italic;
+}
+
+.stat-bar {
+    grid-column: 1 / -1;
+    height: 6px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.stat-fill {
+    height: 100%;
+    border-radius: 3px;
+    background-color: #ffcb05;
+}
+
+.evolution {
+    margin-top: 0.9rem;
+    font-size: 0.6rem;
+}
+
+.evolution-link {
+    margin-left: 4px;
+    padding: 4px 6px;
+    font-family: inherit;
+    font-size: inherit;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid #ffcb05;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.evolution-link:hover {
+    background-color: #ffcb05;
+    color: #1d1d1d;
+}
+
+/* ===== Card colors by main type ===== */
+
+.card-type-normal   { background-image: linear-gradient(45deg, #ece7d6, #b9b39c); --card-text: #1d1d1d; }
+.card-type-feu      { background-image: linear-gradient(45deg, #ffb701, #ff2b00); }
+.card-type-eau      { background-image: linear-gradient(45deg, #2ea8ff, #0033a8); }
+.card-type-plante   { background-image: linear-gradient(45deg, #5ee37c, #0b7a34); }
+.card-type-electrik { background-image: linear-gradient(45deg, #fff36b, #f2c400); --card-text: #2b2400; }
+.card-type-glace    { background-image: linear-gradient(45deg, #c9f4ff, #5fc9e6); --card-text: #0c3340; }
+.card-type-combat   { background-image: linear-gradient(45deg, #e0573c, #8c1d12); }
+.card-type-poison   { background-image: linear-gradient(45deg, #b35ad8, #4b0f63); }
+.card-type-sol      { background-image: linear-gradient(45deg, #e8c873, #a3762d); --card-text: #3a2608; }
+.card-type-vol      { background-image: linear-gradient(45deg, #a9c5ff, #6271d9); }
+.card-type-psy      { background-image: linear-gradient(45deg, #ff6fa8, #8a1c7c); }
+.card-type-insecte  { background-image: linear-gradient(45deg, #c3d94a, #5d7a12); }
+.card-type-roche    { background-image: linear-gradient(45deg, #c9b47a, #6f5b2c); }
+.card-type-spectre  { background-image: linear-gradient(45deg, #7b62c7, #2b1b52); }
+.card-type-dragon   { background-image: linear-gradient(45deg, #7a5cff, #1f2f9e); }
+.card-type-tenebres { background-image: linear-gradient(45deg, #5a4a42, #1a1412); }
+.card-type-acier    { background-image: linear-gradient(45deg, #e1e4ea, #8e97a8); --card-text: #1f2430; }
+.card-type-fee      { background-image: linear-gradient(45deg, #ffd0ea, #f08ac0); --card-text: #4a1236; }
+
+@keyframes color {
+    0%   { background-position: 0 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* ===== Spin on click ===== */
 
 @keyframes rotateCard {
-    from {
-      transform: rotateY(0deg);
-    }
-    to {
-      transform: rotateY(360deg);
-    }
-  }
+    from { transform: rotateY(0deg); }
+    to   { transform: rotateY(360deg); }
+}
 
-
-  @keyframes gradientShift {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
-
-  .card-rotate-bg {
-    background: linear-gradient(45deg, #ffffff, #cccccc, #ffffff);
-    background-size: 200% 200%;
-    animation: gradientShift 5s linear infinite;
-  }
-  
-  .card-rotate {
+.card-rotate {
     animation: rotateCard 8s linear infinite;
-    transform-style: preserve-3d;
-  }
+}
 
 
 footer {

@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Développeur mystérieux qui boit un café">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#5b2a86" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#3b185f" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff0080" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ff0080" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="lenses">
+      <circle cx="283" cy="240" r="11"/>
+      <circle cx="317" cy="240" r="11"/>
+    </clipPath>
+    <clipPath id="teethTop">
+      <path d="M266 254 Q300 268 334 254 Q300 282 266 254 Z"/>
+    </clipPath>
+    <clipPath id="teethBottom">
+      <path d="M266 254 Q300 282 334 254 Q300 300 266 254 Z"/>
+    </clipPath>
+    <linearGradient id="hatCrown" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#262036"/>
+      <stop offset="100%" stop-color="#0f0c16"/>
+    </linearGradient>
+    <linearGradient id="hatBrim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#221c30"/>
+      <stop offset="100%" stop-color="#0f0c16"/>
+    </linearGradient>
+    <radialGradient id="knit" cx="38%" cy="32%" r="75%">
+      <stop offset="0%" stop-color="#2a2438"/>
+      <stop offset="60%" stop-color="#16131f"/>
+      <stop offset="100%" stop-color="#0c0a12"/>
+    </radialGradient>
+    <style>
+      .steam { fill: none; stroke: #e1e1e1; stroke-width: 4; stroke-linecap: round; opacity: 0; animation: steam 2.4s ease-in-out infinite; }
+      .s2 { animation-delay: .8s; }
+      .s3 { animation-delay: 1.6s; }
+      @keyframes steam {
+        0%   { transform: translateY(6px);   opacity: 0; }
+        35%  { opacity: .7; }
+        100% { transform: translateY(-22px); opacity: 0; }
+      }
+      .twinkle { fill: #e1e1e1; animation: twinkle 3s ease-in-out infinite; }
+      .t2 { animation-delay: 1s; }
+      .t3 { animation-delay: 2s; }
+      @keyframes twinkle { 0%, 100% { opacity: .15; } 50% { opacity: .8; } }
+    </style>
+  </defs>
+
+  <!-- background -->
+  <circle cx="300" cy="300" r="260" fill="url(#bg)"/>
+  <circle class="twinkle" cx="110" cy="150" r="3"/>
+  <circle class="twinkle t2" cx="490" cy="120" r="2.5"/>
+  <circle class="twinkle t3" cx="520" cy="260" r="2"/>
+  <circle class="twinkle t2" cx="80" cy="300" r="2"/>
+  <circle class="twinkle t3" cx="170" cy="90" r="2"/>
+
+  <!-- floor shadow -->
+  <ellipse cx="300" cy="560" rx="230" ry="12" fill="#000" opacity="0.25"/>
+
+  <!-- torso: white tee with retro stripes -->
+  <path d="M212 432 L212 345 Q212 293 262 289 L338 289 Q388 293 388 345 L388 432 Z" fill="#efece6"/>
+  <path d="M272 290 Q300 306 328 290" fill="none" stroke="#d6d0c4" stroke-width="3"/>
+  <rect x="212" y="352" width="176" height="7" fill="#e94d62"/>
+  <rect x="212" y="362" width="176" height="7" fill="#ff7a3d"/>
+  <rect x="212" y="372" width="176" height="7" fill="#ffc24b"/>
+
+  <!-- head: balaclava (reads as the face) + grin mask -->
+  <g>
+    <animateTransform attributeName="transform" type="rotate" dur="6s" repeatCount="indefinite"
+      values="0 300 285;0 300 285;4 300 285;4 300 285;0 300 285;0 300 285"
+      keyTimes="0;0.27;0.4;0.63;0.77;1" calcMode="spline"
+      keySplines=".4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1"/>
+    <!-- balaclava = the face: one smooth black head, no openings or seams -->
+    <path d="M252 226 Q252 186 300 186 Q348 186 348 226 L346 260 Q341 290 300 293 Q259 290 254 260 Z" fill="url(#knit)"/>
+    <!-- black mask with a toothy grin that opens to drink -->
+    <g transform="translate(0 6)">
+      <!-- ear loops -->
+      <path d="M257 250 Q250 244 252 236 M343 250 Q350 244 348 236" fill="none" stroke="#2e2840" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- mouth inside (revealed when the jaw opens) -->
+      <path d="M266 254 Q300 282 334 254 L334 270 Q300 300 266 270 Z" fill="#2a0d14"/>
+      <path d="M284 280 Q300 290 316 280 Q300 296 284 280 Z" fill="#b8324a"/>
+      <!-- lower jaw (moves down) -->
+      <g>
+        <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite"
+          values="0 0;0 0;0 14;0 14;0 0;0 0"
+          keyTimes="0;0.3;0.38;0.62;0.7;1" calcMode="spline"
+          keySplines=".4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1"/>
+        <path d="M256 254 L266 254 Q300 282 334 254 L344 254 Q343 272 331 282 Q300 300 269 282 Q257 272 256 254 Z" fill="#1f1b2a" stroke="#2e2840" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M266 254 Q300 282 334 254 Q300 300 266 254 Z" fill="#fffffe"/>
+        <path clip-path="url(#teethBottom)" d="M274 250 V300 M282 250 V300 M290 250 V300 M298 250 V300 M306 250 V300 M314 250 V300 M322 250 V300 M330 250 V300" stroke="#1f1b2a" stroke-width="1.6"/>
+      </g>
+      <!-- upper part of the mask (fixed) -->
+      <path d="M256 244 Q300 236 344 244 L344 254 L334 254 Q300 282 266 254 L256 254 Z" fill="#1f1b2a" stroke="#2e2840" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M266 254 Q300 268 334 254 Q300 282 266 254 Z" fill="#fffffe"/>
+      <path clip-path="url(#teethTop)" d="M274 250 V290 M282 250 V290 M290 250 V290 M298 250 V290 M306 250 V290 M314 250 V290 M322 250 V290 M330 250 V290" stroke="#1f1b2a" stroke-width="1.6"/>
+      <path d="M266 254 q-7 -1 -7 -6 q1 -4 5 -2 M334 254 q7 -1 7 -6 q-1 -4 -5 -2" fill="none" stroke="#fffffe" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <!-- round sunglasses: white frames, black lenses, no temples -->
+    <circle cx="283" cy="240" r="13" fill="#0b0910" stroke="#f4f1ea" stroke-width="5"/>
+    <circle cx="317" cy="240" r="13" fill="#0b0910" stroke="#f4f1ea" stroke-width="5"/>
+    <path d="M296 237 Q300 233 304 237" fill="none" stroke="#f4f1ea" stroke-width="4" stroke-linecap="round"/>
+    <g clip-path="url(#lenses)">
+      <!-- faint pink reflection of the laptop screen -->
+      <path d="M275 246 Q277 238 285 234 M309 246 Q311 238 319 234" fill="none" stroke="#ff0080" stroke-width="2.2" stroke-linecap="round" opacity=".55"/>
+      <circle cx="290" cy="246" r="1.8" fill="#fffffe" opacity=".5"/>
+      <circle cx="324" cy="246" r="1.8" fill="#fffffe" opacity=".5"/>
+      <!-- mysterious glint sweeping across the lenses -->
+      <rect x="250" y="210" width="8" height="64" fill="#fffffe" opacity=".6" transform="rotate(25 300 240)">
+        <animate attributeName="x" dur="6s" repeatCount="indefinite"
+          values="250;250;352;352" keyTimes="0;0.8;0.92;1"/>
+      </rect>
+    </g>
+    <!-- chin-strap cords + toggle -->
+    <path d="M252 222 Q254 278 296 306 M348 222 Q346 278 304 306" fill="none" stroke="#9a92b3" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M300 318 Q298 332 302 344" fill="none" stroke="#9a92b3" stroke-width="2.2" stroke-linecap="round"/>
+    <rect x="294" y="304" width="12" height="14" rx="5" fill="#2c2442" stroke="#9a92b3" stroke-width="1.6"/>
+    <circle cx="302" cy="346" r="3" fill="#2c2442" stroke="#9a92b3" stroke-width="1.4"/>
+    <!-- black bucket hat (bob) in perspective: soft round brim, band, no points -->
+    <path d="M204 217 L260 200 A40 8 0 0 1 340 200 L396 217 A96 13 0 0 1 204 217 Z" fill="url(#hatBrim)" stroke="#1a1526" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M210 222 A92 12 0 0 0 390 222" fill="none" stroke="#3a3352" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    <path d="M226 210 Q244 204 262 201" fill="none" stroke="#3a3352" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+    <path d="M260 200 L263 176 Q266 163 300 161 Q334 163 337 176 L340 200 A40 8 0 0 1 260 200 Z" fill="url(#hatCrown)"/>
+    <path d="M261 192 A39 8 0 0 0 339 192 L340 200 A40 8 0 0 1 260 200 Z" fill="#0a0810"/>
+    <path d="M284 165 Q300 170 316 165" fill="none" stroke="#0f0c16" stroke-width="2" stroke-linecap="round"/>
+    <path d="M270 188 Q270 173 283 167" fill="none" stroke="#3a3352" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+  </g>
+
+  <!-- arm (bare forearm, behind the mug) -->
+  <path fill="none" stroke="#c68e62" stroke-width="22" stroke-linecap="round" d="M364 322 Q440 362 424 396">
+    <animate attributeName="d" dur="6s" repeatCount="indefinite"
+      values="M364 322 Q440 362 424 396;M364 322 Q440 362 424 396;M364 322 Q436 404 345 283;M364 322 Q436 404 345 283;M364 322 Q440 362 424 396;M364 322 Q440 362 424 396"
+      keyTimes="0;0.27;0.4;0.63;0.77;1" calcMode="spline"
+      keySplines=".4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1"/>
+  </path>
+  <!-- short sleeve -->
+  <path d="M350 300 Q384 298 392 330 Q394 342 384 346 L356 346 Q346 330 350 300 Z" fill="#efece6"/>
+
+  <!-- desk -->
+  <rect x="88" y="430" width="16" height="125" rx="4" fill="#2f2148"/>
+  <rect x="496" y="430" width="16" height="125" rx="4" fill="#2f2148"/>
+  <rect x="60" y="420" width="480" height="16" rx="5" fill="#5a3d85"/>
+  <rect x="60" y="420" width="480" height="4" rx="2" fill="#7a56ad"/>
+
+  <!-- laptop (back of the lid) -->
+  <ellipse cx="198" cy="368" rx="70" ry="50" fill="url(#glow)"/>
+  <rect x="132" y="318" width="132" height="98" rx="9" fill="#2a2440" stroke="#433a63" stroke-width="3"/>
+  <text x="198" y="378" text-anchor="middle" font-family="Consolas, Menlo, monospace" font-size="28" font-weight="700" fill="#ff0080">&lt;/&gt;</text>
+  <rect x="122" y="413" width="152" height="8" rx="3" fill="#433a63"/>
+
+  <!-- little plant -->
+  <path d="M470 388 Q452 360 462 340 Q476 360 474 388 Z" fill="#3fbf8a"/>
+  <path d="M478 388 Q482 352 504 344 Q500 372 482 390 Z" fill="#2fa577"/>
+  <path d="M474 388 Q468 356 480 326 Q490 356 480 388 Z" fill="#4fd89c"/>
+  <path d="M458 386 L496 386 L490 420 L464 420 Z" fill="#e94d62"/>
+
+  <!-- mug -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite"
+      values="395 392;395 392;316 292;316 292;395 392;395 392"
+      keyTimes="0;0.27;0.4;0.63;0.77;1" calcMode="spline"
+      keySplines=".4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1"/>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" dur="6s" repeatCount="indefinite"
+        values="0;0;-22;-22;0;0"
+        keyTimes="0;0.27;0.4;0.63;0.77;1" calcMode="spline"
+        keySplines=".4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1;.4 0 .2 1"/>
+      <!-- steam (hidden while sipping) -->
+      <g>
+        <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+          values="1;1;0;0;1;1" keyTimes="0;0.25;0.3;0.8;0.9;1"/>
+        <path class="steam" d="M-10 -36 q-7 -9 0 -18 q7 -9 0 -18"/>
+        <path class="steam s2" d="M2 -38 q-7 -9 0 -18 q7 -9 0 -18"/>
+        <path class="steam s3" d="M14 -36 q-7 -9 0 -18 q7 -9 0 -18"/>
+      </g>
+      <path d="M20 -12 Q38 -12 38 2 Q38 16 18 16" fill="none" stroke="#c40063" stroke-width="7"/>
+      <path d="M-23 -26 L23 -26 L20 24 Q20 28 16 28 L-16 28 Q-20 28 -20 24 Z" fill="#ff0080"/>
+      <rect x="-15" y="-18" width="6" height="36" rx="3" fill="#fff" opacity=".25"/>
+      <ellipse cx="0" cy="-26" rx="23" ry="5" fill="#c40063"/>
+      <ellipse cx="0" cy="-25.5" rx="19" ry="3.5" fill="#5a3420"/>
+      <path d="M4 0 c0 -5 7 -5 7 0 c0 -5 7 -5 7 0 c0 6 -7 10 -7 10 c0 0 -7 -4 -7 -10 Z" transform="translate(-11 -2)" fill="#fffffe" opacity=".9"/>
+      <!-- hand -->
+      <ellipse cx="30" cy="2" rx="11" ry="13" fill="#c68e62"/>
+    </g>
+  </g>
+
+  <!-- energy bolt after the sip (coffee boost) -->
+  <g opacity="0">
+    <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+      values="0;0;1;1;0;0" keyTimes="0;0.66;0.7;0.8;0.9;1"/>
+    <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite"
+      values="0 0;0 0;0 -40;0 -40" keyTimes="0;0.66;0.9;1"/>
+    <path d="M396 140 L380 168 L392 168 L384 194 L408 160 L395 160 L404 140 Z" fill="#ff0080" stroke="#ffd1e8" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M372 150 l-8 -6 M418 150 l8 -6 M416 178 l9 3 M370 178 l-9 3" stroke="#ffd1e8" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

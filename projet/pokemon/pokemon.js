@@ -1,348 +1,134 @@
+// Classe CSS de la carte selon le type principal (noms renvoyés par Tyradex)
+const TYPE_CLASSES = {
+  "Normal": "normal",
+  "Feu": "feu",
+  "Eau": "eau",
+  "Plante": "plante",
+  "Électrik": "electrik",
+  "Glace": "glace",
+  "Combat": "combat",
+  "Poison": "poison",
+  "Sol": "sol",
+  "Vol": "vol",
+  "Psy": "psy",
+  "Insecte": "insecte",
+  "Roche": "roche",
+  "Spectre": "spectre",
+  "Dragon": "dragon",
+  "Ténèbres": "tenebres",
+  "Acier": "acier",
+  "Fée": "fee",
+};
+
+const STATS = [
+  { label: "HP", key: "hp" },
+  { label: "ATTACK", key: "atk" },
+  { label: "DEFENSE", key: "def" },
+  { label: "SPEED", key: "vit" },
+];
+
+// Tyradex (API Pokémon en français) : les noms doivent être envoyés sans accents
+const normalizeName = (name) =>
+  String(name)
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "");
+
+const fetchPokemon = async (pokemon) => {
+  const res = await fetch(`https://tyradex.app/api/v1/pokemon/${encodeURIComponent(normalizeName(pokemon))}`);
+  const data = await res.json();
+  if (!res.ok || data.status) return null;
+  return data;
+};
+
+const buildCard = (data) => {
+  const types = data.types || [];
+  const mainType = types.length ? TYPE_CLASSES[types[0].name] || "normal" : "normal";
+  const nextEvolution = data.evolution && data.evolution.next ? data.evolution.next[0] : null;
+
+  const typesHTML = types
+    .map((type) => `<img class="type-icon" src="${type.image}" alt="${type.name}" title="${type.name}" />`)
+    .join("");
+
+  const statsHTML = STATS.map(({ label, key }) => {
+    const value = data.stats[key];
+    const percent = Math.min(100, Math.round((value / 160) * 100));
+    return `
+      <div class="stat-row">
+        <span class="stat-label">${label}</span>
+        <span class="stat-value">${value}</span>
+        <div class="stat-bar"><div class="stat-fill" style="width:${percent}%"></div></div>
+      </div>`;
+  }).join("");
+
+  const evolutionHTML = nextEvolution
+    ? `<p class="evolution">Évolution <button type="button" class="evolution-link">${nextEvolution.name}</button></p>`
+    : "";
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="card-front card-type-${mainType}">
+      <div class="card-header">
+        <span class="card-name">${data.name.fr}</span>
+        <span class="card-types">${typesHTML}</span>
+      </div>
+      <div class="img-pokemon">
+        <img src="${data.sprites.regular}" alt="${data.name.fr}" />
+      </div>
+      <div class="stat-pokemon">${statsHTML}</div>
+      ${evolutionHTML}
+    </div>
+  `;
+
+  // Effet 3D qui suit la souris
+  card.addEventListener("mousemove", (e) => {
+    if (card.classList.contains("card-rotate")) return;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    card.style.transform = `rotateX(${(y - 0.5) * -20}deg) rotateY(${(x - 0.5) * 20}deg)`;
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "";
+  });
+
+  // Clic sur la carte : rotation
+  card.addEventListener("click", () => {
+    card.style.transform = "";
+    card.classList.toggle("card-rotate");
+  });
+
+  // Clic sur l'évolution : remplace la carte par celle de l'évolution
+  const evolutionLink = card.querySelector(".evolution-link");
+  if (evolutionLink) {
+    evolutionLink.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const evolution = await fetchPokemon(nextEvolution.pokedex_id);
+      if (evolution) card.replaceWith(buildCard(evolution));
+    });
+  }
+
+  return card;
+};
+
 const getData = async (pokemonName) => {
   try {
+    const input = document.getElementById("nomPokemon");
+    const pokemon = pokemonName || input.value;
+    if (!String(pokemon).trim()) return;
 
-    let pokemon = pokemonName;
-    if(!pokemon){
-
-      let inputPokemon = document.getElementById("nomPokemon");
-      pokemon = inputPokemon.value;
-
+    const data = await fetchPokemon(pokemon);
+    if (!data) {
+      console.log("Pokémon introuvable :", pokemon);
+      return;
     }
 
-
-    console.log(pokemon);
-
-    const res = await fetch(`https://pokebuildapi.fr/api/v1/pokemon/${pokemon}`);
-    const data = await res.json();
-
-
-     console.log(data);
-     let evolutionName = "";
-     if (data.apiEvolutions && data.apiEvolutions.length > 0) {
-       evolutionName = data.apiEvolutions[0].name;
-       console.log("Évolution:", evolutionName);
-     } else {
-       console.log("Pas d'évolution");
-     }
-
-    const newDiv = document.createElement('div');
-
-    console.log("Taille du array ", data.apiTypes.length);
-
-    for (i = 0; i < data.apiTypes.length; i++) {
-
-/*       let poketype = [];
- */
-      /* const count = poketype.push(data.apiTypes[i].name); */
-
-      /* console.log("Poketype  ", poketype); */
-
-      if (data.apiTypes[i].name == "Feu") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-feu',
-        
-        );
-      }
-
-
-      else if (data.apiTypes[i].name == "Eau") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-eau'
-        );
-      }
-
-      else if (data.apiTypes[i].name == "Herbe") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-herbe'
-        );
-      }
-
-      else if (data.apiTypes[i].name == "Électrik") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-elec'
-        );
-      }
-
-      else if (data.apiTypes[i].name == "Psy") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-psy'
-        );
-      }
-
-      else if (data.apiTypes[i].name == "Obscure") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-obscure'
-        );
-      }
-
-      else if (data.apiTypes[i].name == "Dragon") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-dragon'
-        );
-      }
-
-      else if (data.apiTypes[i].name == "Poison") {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-poison'
-        );
-      }
-
-      else {
-
-        newDiv.classList.add(
-          'block',
-          'max-w-[18rem]',
-          'rounded-lg',
-          'text-left',
-          'text-surface',
-          'shadow-secondary-1',
-          'dark:bg-surface-dark',
-          'dark:text-black',
-          'mx-auto',
-          'my-10',
-          'card-front',
-          'card-pokemon-normal'
-        );
-      }
-
-
-    }
-
-
-  let evolutionHTML = "";
-
-  if (data.apiEvolutions && data.apiEvolutions.length > 0) {
-    evolutionName = data.apiEvolutions[0].name;
-    console.log("Évolution:", evolutionName);
-
-    evolutionHTML = `<p style="font-size:12px;">
-      Évolution <span id="evolutionName" style="color:#0032de; cursor:pointer;">${evolutionName}</span>
-    </p>`;
-  } else {
-    console.log("Pas d'évolution");
-  }
-
-
-  let typesHTML = "";
-data.apiTypes.forEach(type => {
-  let emoji = "";
-
-  switch (type.name) {
-    case "Feu": emoji = "🔥"; break;
-    case "Eau": emoji = "💧"; break;
-    case "Plante": emoji = "🌿"; break;
-    case "Électrik": emoji = "⚡"; break;
-    case "Roche": emoji = "🪨"; break;
-    case "Psy": emoji = "🔮"; break;
-    case "Ténèbres": emoji = "🌑"; break;
-    case "Insecte": emoji = "🐛"; break;
-    case "Vol": emoji = "🕊️"; break;
-    case "Sol": emoji = "🌍"; break;
-    case "Fée": emoji = "✨"; break;
-    case "Acier": emoji = "⚙️"; break;
-    case "Glace": emoji = "❄️"; break;
-    case "Poison": emoji = "☠️"; break;
-    case "Dragon": emoji = "🐉"; break;
-    case "Combat": emoji = "🥊"; break;
-    case "Spectre": emoji = "👻"; break;
-    case "Normal": emoji = "🔘"; break;
-    default: emoji = "❓";
-  }
-
-  typesHTML += `<span title="${type.name}" class="ml-2">${emoji}</span>`;
-});
-
-
-
-
-
-    newDiv.innerHTML = `
-        <div class="p-6">
-        <div class="mb-1 font-medium leading-tight flex justify-between items-center">
-        <span>${data.name}</span>
-        <span class="flex gap-1">${typesHTML}</span>
-      </div>
-        <div class="img-pokemon">
-        <img src="${data.image}" alt="${data.name}" />
-        </div>
-        
-        <div class="stat-pokemon my-5 flex flex-row">
-        <div class="flex-col ml-2 justify-start mt-2">
-          <p>HP</p>
-          <p>ATTACK</p>
-          <p>DEFENSE</p>
-          <p>SPEED</p>
-    
-        </div>
-    
-        <div style="margin-left: 4rem;" class="flex-col justify-end italic mt-2">
-          <p>${data.stats.HP}</p>
-          <p>${data.stats.attack}</p>
-          <p>${data.stats.defense}</p>
-          <p>${data.stats.speed}</p>
-        </div>
-    
-        
-    
-       </div>
-
-       ${evolutionHTML}    
-    
-      </div>
-
-
-
-
-
-    `;
-
-    const evolutionSpan = newDiv.querySelector('#evolutionName');
-    if (evolutionSpan) {
-      evolutionSpan.addEventListener('click', () => {
-        newDiv.innerHTML= "";
-        card.remove();
-        getData(evolutionName);
-
-      });
-    }
-    
-
-
-    const card = document.createElement("div");
-    const contain = document.querySelector('.card-container');
-    card.classList.add('card');
-    card.setAttribute("id","card")
-    contain.appendChild(card);
-    card.appendChild(newDiv);
-
-
-    card.addEventListener('mousemove', (e) => {
-      const { offsetWidth: width, offsetHeight: height } = card;
-      const { offsetX: x, offsetY: y } = e;
-
-      const rotateX = ((y / height) - 0.5) * -20;
-      const rotateY = ((x / width) - 0.5) * 20;
-
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    const cardContainer = document.querySelector('.card-container');
-    cardContainer.addEventListener('mouseleave', () => {
-      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    });
-
-    card.addEventListener("click", () =>{
-
-      if(card.classList.contains("card-rotate")){
-        card.classList.remove("card-rotate");
-      }
-
-      else{
-        card.classList.add("card-rotate");
-      }
-    })
-
-  }
-
-  catch (err) {
+    // La dernière carte recherchée s'affiche en premier
+    document.querySelector(".card-container").prepend(buildCard(data));
+  } catch (err) {
     console.log(err);
   }
-}
-
-
+};
